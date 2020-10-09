@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import TvShowApp from './pages/TvShowApp'
+import Rating from './pages/Rating'
+import TvShowDetail from './pages/TvShowDetail'
+import Favorites from './pages/Favorites'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Link,
+  Route
+} from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from "./store"
+import SearchPage from './pages/SearchPage'
+import Navbar from './component/Navbar'
 
-function App() {
+
+const App = () =>{
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <Provider store={store}>
+    <Router>
+      <Navbar/>
 
-export default App;
+        <Switch>
+          <Route exact path='/'>
+            <TvShowApp />
+          </Route>
+          <Route path='/rating'>
+            <Rating/>
+          </Route> 
+          <Route path='/detail/:tvShowId'>
+            <TvShowDetail/>
+          </Route>
+          <Route path='/favorites'>
+            <Favorites/>
+          </Route>
+          <Route path='/search'>
+            <SearchPage/>
+          </Route>
+        </Switch>
+    </Router>
+    </Provider>
+  )
+}
+export default App
